@@ -19,7 +19,9 @@ class problem:
     #constructor
     def __init__(self, inPath, start, goal, m):
         #input image
-        self.imgL = PIL.Image.open(inPath).convert("L")
+        self.img = PIL.Image.open(inPath)
+        #image for calculation
+        self.imgL = self.img.convert("L")
         #initialize pValue 2D-array
         self.pValue = np.ndarray(shape = (self.imgL.size[0], self.imgL.size[1]), dtype = int)
         #copy cells' value
@@ -36,8 +38,6 @@ class problem:
         self.m = m;
         #number of interacted cells
         self.interacted = 0
-        #output image
-        self.imgRGB = PIL.Image.open(inPath).convert("RGB")
         
     #get pixel value of a cell
     def getPixelValue(self, cell):
