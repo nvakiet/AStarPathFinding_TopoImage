@@ -27,7 +27,7 @@ class problem:
         #copy cells' value
         for y in range (self.imgL.size[0]):
             for x in range (self.imgL.size[1]):
-                self.pValue[y, x] = self.imL.getpixel(x, y)
+                self.pValue[y, x] = self.imgL.getpixel((x, y))
         #initialize info 2D-array
         self.info = np.ndarray(shape = (self.imgL.size[0], self.imgL.size[1]), dtype = detail)
         #set start cell
@@ -57,3 +57,19 @@ class problem:
             return True
         else:
             return False
+    
+    #setup possible child
+    def possibleChild(self, cell):
+        #list of 8 neighbor cells
+        A = [(cell[0] - 1, cell[1] - 1),
+             (cell[0], cell[1] - 1),
+             (cell[0] + 1, cell[1] - 1),
+             (cell[0] - 1, cell[1]),
+             (cell[0] + 1, cell[1]),
+             (cell[0] - 1, cell[1] + 1),
+             (cell[0], cell[1] + 1),
+             (cell[0] + 1, cell[1] + 1)]
+        #traverse to check possible child
+        for i in range(8):
+            if A[i][0] >= 0 and A[i][0] < self.imgL.size[1] and A[i][1] >= 0 and A[i][1] < self.imgL.size[0] and self.checkChild(cell, A[i]):
+                self.pValue.child.append(A[i])
