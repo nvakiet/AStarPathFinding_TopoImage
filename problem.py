@@ -1,30 +1,59 @@
-import math
+import PIL
 import numpy as np
 
 class detail:
+    #default constructor
     def __init__(self):
+        #cell's parent
         self.parent = tuple()
+        #cell's childs
         self.child = list()
+        #interacted checking
         self.interacted = False
+        #visited checking
         self.visited = False 
+        #g(n)
         self.pathTraveled = 0
         
 class problem:
     #constructor
-    def __init__(self, xMax, yMax, start, goal, m):
+    def __init__(self, inPath, start, goal, m):
+        #input image
+        self.imgL = PIL.Image.open(inPath).convert("L")
+        #initialize pValue 2D-array
+        self.pValue = np.ndarray(shape = (self.imgL.size[0], self.imgL.size[1]), dtype = int)
+        #copy cells' value
+        for y in range (self.imgL.size[0]):
+            for x in range (self.imgL.size[1]):
+                self.pValue[y, x] = self.imL.getpixel(x, y)
+        #initialize info 2D-array
+        self.info = np.ndarray(shape = (self.imgL.size[0], self.imgL.size[1]), dtype = detail)
+        #set start cell
         self.start = start
+        #set goal cell
         self.goal = goal
+        #set value m
         self.m = m;
+        #number of interacted cells
         self.interacted = 0
-        self.pValue = np.ndarray(shape = (yMax, xMax), dtype = int, order = 'F')
-        self.info = np.ndarray(shape = (yMax, xMax), dtype = detail, order = 'F')  
+        #output image
+        self.imgRGB = PIL.Image.open(inPath).convert("RGB")
+        
     #get pixel value of a cell
-    def getPixelValue(self, point):
-        return self.height[point[0], point[1]]
+    def getPixelValue(self, cell):
+        return self.pValue[cell[1], cell[0]]
+    
     #get goal cell
     def getGoal(self):
         return self.goal
+    
     #get info of a cell
-    def getDetails(self, point):
-        return self.info[point[0], point[1]]
-    #check child?
+    def getDetails(self, cell):
+        return self.info[cell[1], cell[0]]
+    
+    #child checking
+    def checkChild(self, cellA, cellB):
+        if abs(cellA[1] - cellB[1]) <= 1 and abs(cellA[0] - cellB[0]) <= 1 and abs(self.getPixelValue(cellA) - self.getPixelValue(cellB)) <= self.m:
+            return True
+        else:
+            return False
