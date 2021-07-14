@@ -1,20 +1,17 @@
-from PIL import Image, ImageDraw, ImageChops
-import numpy as np
-
-def getGrayscale(rgbPixel: tuple):
-    return int(0.2989 * rgbPixel[0] + 0.5870 * rgbPixel[1] + 0.1140 * rgbPixel[2])
+from a_star import *
+from evaluation import h_Euclidean, h_Manhattan3D, h_Octile3D
 
 def main():
     inPath = "input/map.bmp"
-    outPath = "output/test.bmp"
-    im = Image.open(inPath).convert("L")
-    im2 = Image.open(inPath).convert("RGB")
-    imDraw = ImageDraw.Draw(im2, "RGB")
-    for y in range(im.size[0]):
-        for x in range(im.size[1]):
-            if im.getpixel((x,y)) < 50:
-                imDraw.point((x, y), (255,0,0))
-    im2.save(outPath)
+    outPath = ["output/map1.bmp", "output/output1.txt"]
+    print("Building graph...")
+    graph = Graph(inPath, outPath, (74,213), (96,311), 10)
+    print("Searching for path...")
+    result = A_Star_Search(graph, h_Euclidean)
+    if result == True:
+        print("Path has been found, please check output path.")
+    else:
+        print("No path found. Try increasing m.")
 
 if __name__ == "__main__":
     main()

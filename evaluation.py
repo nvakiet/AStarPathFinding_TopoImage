@@ -1,5 +1,6 @@
 from math import sqrt
 from typing import Callable
+from graph import Graph, detail
 
 def calcPathCost(currentPoint: tuple, nextPoint: tuple) -> float:
     """Calculate the path distance between 2 points on the topographic image
@@ -71,7 +72,7 @@ def h_Octile3D(nextPoint: tuple, goal: tuple) -> float:
     deltas.sort()
     return dx + dy + da - (3 - sqrt(3)) * deltas[0] - (2 - sqrt(2)) * deltas[1]
 
-def evaluate(stateSpace, current: tuple, next: tuple, heuristic: Callable[[tuple, tuple], float]) -> float:
+def evaluate(stateSpace: Graph, current: tuple, next: tuple, heuristic: Callable[[tuple, tuple], float]) -> float:
     """Evaluate the total heuristic value of a child cell from the current cell.
     The total heuristic is f = g + h, for g is the child's accumulated path cost/distance and h is the value of the heuristic function at that child cell.
 
@@ -84,8 +85,8 @@ def evaluate(stateSpace, current: tuple, next: tuple, heuristic: Callable[[tuple
     Returns:
         float: Total heuristic point for the child cell
     """
-    currentPoint = current + tuple(stateSpace.getPixelValue(current))
-    nextPoint = next + tuple(stateSpace.getPixelValue(next))
+    currentPoint = current + tuple([stateSpace.getPixelValue(current)])
+    nextPoint = next + tuple([stateSpace.getPixelValue(next)])
     goalXY = stateSpace.getGoal()
-    goalPoint = goalXY + tuple(stateSpace.getPixelValue(goalXY))
+    goalPoint = goalXY + tuple([stateSpace.getPixelValue(goalXY)])
     return stateSpace.getDetails(current).pathTraveled + calcPathCost(currentPoint, nextPoint) + heuristic(nextPoint, goalPoint)
