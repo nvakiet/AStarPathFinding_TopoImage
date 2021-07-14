@@ -14,7 +14,7 @@ def calcPathCost(currentPoint: tuple, nextPoint: tuple) -> float:
     """
     dx = nextPoint[0] - currentPoint[0]
     dy = nextPoint[1] - currentPoint[1]
-    da = currentPoint[2] - currentPoint[2]
+    da = currentPoint[2] - nextPoint[2]
     sgn = 0
     if da < 0:
         sgn = -1
