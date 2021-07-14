@@ -7,7 +7,7 @@ def main():
     print("Building graph...")
     graph = Graph(inPath, outPath, (74,213), (96,311), 10)
     print("Searching for path...")
-    result = A_Star_Search(graph, h_Euclidean)
+    result = A_Star_Search(graph, h_Manhattan3D)
     if result == True:
         print("Path has been found, please check output path.")
     else:

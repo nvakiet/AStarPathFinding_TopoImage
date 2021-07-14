@@ -36,8 +36,8 @@ def A_Star_Search(graph: Graph, heuristic: Callable[[tuple, tuple], float]) -> b
                 # Mark current coordinate as parent/source of next coordinate
                 graph.getDetails(nextCell).parent = cell
                 # Update the path that will be traveled by the next coordinate
-                current = cell + tuple(graph.getPixelValue(cell))
-                next = nextCell + tuple(graph.getPixelValue(nextCell))
+                current = cell + tuple([graph.getPixelValue(cell)])
+                next = nextCell + tuple([graph.getPixelValue(nextCell)])
                 graph.getDetails(nextCell).pathTraveled = graph.getDetails(cell).pathTraveled + calcPathCost(current, next)
                 # Push the next coordinate to frontier
                 frontier.push(nextCell, f)

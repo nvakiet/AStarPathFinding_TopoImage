@@ -25,8 +25,7 @@ class Graph:
         #initialize pValue 2D-array
         self.pValue = np.asarray(self.imgL)
         #initialize info 2D-array
-        self.info = [detail() for i in range(self.img.size[0] * self.img.size[1])]
-        self.info = np.array(self.info, dtype=detail).reshape((self.img.size[1], self.img.size[0]))
+        self.info = [[detail() for i in range(self.img.size[0])] for j in range(self.img.size[1])]
         #set start cell
         self.start = start
         #set goal cell
@@ -48,9 +47,7 @@ class Graph:
     
     #get info of a cell
     def getDetails(self, cell) -> detail:
-        print(cell)
-        print(type(self.info[cell[1]][cell[0]]))
-        return self.info[cell[1], cell[0]]
+        return self.info[cell[1]][cell[0]]
     
     #child checking
     def checkChild(self, cellA, cellB):
