@@ -3,11 +3,11 @@ from evaluation import h_Euclidean, h_Manhattan3D, h_Octile3D
 
 def main():
     inPath = "input/map.bmp"
-    outPath = ["output/map1.bmp", "output/output1.txt"]
+    outPath = ["output/map3.bmp", "output/output3.txt"]
     print("Building graph...")
     graph = Graph(inPath, outPath, (74,213), (96,311), 10)
     print("Searching for path...")
-    result = A_Star_Search(graph, h_Manhattan3D)
+    result = A_Star_Search(graph, h_Octile3D)
     if result == True:
         print("Path has been found, please check output path.")
     else:

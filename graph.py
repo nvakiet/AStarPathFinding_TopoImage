@@ -23,7 +23,7 @@ class Graph:
         #image for calculation
         self.imgL = self.img.convert("L")
         #initialize pValue 2D-array
-        self.pValue = np.asarray(self.imgL)
+        self.pValue = np.asarray(self.imgL, dtype=int)
         #initialize info 2D-array
         self.info = [[detail() for i in range(self.img.size[0])] for j in range(self.img.size[1])]
         #set start cell

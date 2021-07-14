@@ -32,7 +32,7 @@ def A_Star_Search(graph: Graph, heuristic: Callable[[tuple, tuple], float]) -> b
             # Calculate f(n) = g(n) + h(n) for next coordinate
             f = evaluate(graph, cell, nextCell, heuristic)
             # If the next coordinate is not visited or is not in the frontier
-            if graph.getDetails(nextCell).visited == False or not frontier.hasItem(nextCell):
+            if graph.getDetails(nextCell).visited == False and not frontier.hasItem(nextCell):
                 # Mark current coordinate as parent/source of next coordinate
                 graph.getDetails(nextCell).parent = cell
                 # Update the path that will be traveled by the next coordinate
