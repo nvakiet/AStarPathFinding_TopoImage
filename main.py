@@ -1,6 +1,5 @@
 from a_star import *
 from evaluation import h_Euclidean, h_Manhattan3D, h_Octile3D
-import re
 
 def main():
     inPaths = input("Enter image and text input paths (separated by space): ").split()
